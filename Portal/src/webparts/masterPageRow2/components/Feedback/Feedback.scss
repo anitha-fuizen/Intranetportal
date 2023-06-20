@@ -1,0 +1,73 @@
+textarea {
+  margin: 6px;
+  resize: none;
+  height: 106px;
+  width: 98%;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  outline: none;
+  padding: 3px;
+  overflow-y: hidden;
+}
+
+.feedbackTitle {
+  padding: 3px 12px;
+}
+
+.formDiv {
+  position: relative;
+  // background-image: url("https://zelarsoft1.sharepoint.com/sites/Zelardemo/SiteAssets/KaiZan-bg.png");
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.submitBtn {
+  position: absolute;
+  bottom: -18px;
+  right: 17px;
+  z-index: 999;
+}
+
+.submitBtn button {
+  background-color: #5891bb;
+  padding: 3px;
+  height: 18px;
+  margin: 9px;
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+  font-size: 10px;
+}
+
+.msgopen {
+  display: flex;
+  color: green;
+  transition: 4ms;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.msgclose {
+  display: none;
+  transition: 4ms;
+}
+
+.btnDivHide {
+  display: none;
+}
+
+.btnDivShow {
+  display: block;
+}
+
+.rowMains{
+  height: 50px;
+  margin:10px 0px 0px 0px;
+  border-radius: 16px;
+  background-color: #FFFFFF;
+  width: 410px;
+  box-shadow: none;
+}

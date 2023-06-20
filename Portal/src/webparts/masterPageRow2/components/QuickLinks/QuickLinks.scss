@@ -1,0 +1,25 @@
+.row2container__part2__item {
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: none;  
+
+    .linkBody {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .actualLink {
+        text-decoration: none;
+        font-size: 8px;
+        color: black;
+    }
+
+    .linkIcon img {
+        height: 20px;
+        width: 20px;
+    }
+}
