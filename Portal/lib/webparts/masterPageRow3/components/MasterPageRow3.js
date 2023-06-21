@@ -42,11 +42,13 @@ import "@pnp/sp/webs";
 import "@pnp/sp/lists";
 import "@pnp/sp";
 import { getSP } from '../pnpConfig';
+import Tasks from './Tasks';
 //import { getSP } from '../pnpConfig';
 //import OpinionPoll from './Opinion Poll'
 //import { Web } from "@pnp/sp/webs";
 var MasterPageRow3 = function (props) {
     var _a = React.useState([]), trainingdata = _a[0], setTrainingdata = _a[1];
+    var _b = React.useState([]), tasksdata = _b[0], setTasksdata = _b[1];
     var getTrainingsdata = function () { return __awaiter(void 0, void 0, void 0, function () {
         var _sp, items;
         return __generator(this, function (_a) {
@@ -62,12 +64,30 @@ var MasterPageRow3 = function (props) {
             }
         });
     }); };
+    var getTasksdata = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var _sp, items;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _sp = getSP(props.context);
+                    return [4 /*yield*/, _sp.web.lists.getByTitle("Tasks").items()];
+                case 1:
+                    items = _a.sent();
+                    setTasksdata(items);
+                    console.log(items);
+                    return [2 /*return*/];
+            }
+        });
+    }); };
     React.useEffect(function () {
         var execute = function () { return __awaiter(void 0, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, getTrainingsdata()];
                     case 1:
+                        _a.sent();
+                        return [4 /*yield*/, getTasksdata()];
+                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -77,7 +97,9 @@ var MasterPageRow3 = function (props) {
     }, []);
     return (React.createElement("div", { className: "Containers3" },
         React.createElement("div", null,
-            React.createElement(Trainings, { data: trainingdata }))));
+            React.createElement(Trainings, { data: trainingdata })),
+        React.createElement("div", null,
+            React.createElement(Tasks, { data: tasksdata }))));
 };
 export default MasterPageRow3;
 //# sourceMappingURL=MasterPageRow3.js.map
