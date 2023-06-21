@@ -7,36 +7,67 @@ import "@pnp/sp/lists";
 import "@pnp/sp";
 //import Tasks from './Tasks'
 import { IMasterPageRow3Props } from './IMasterPageRow3Props'
-import { getSP } from '../pnpConfig';
-import { SPFI } from '@pnp/sp';
+// import { getSP } from '../pnpConfig';
+ import {  SPFx } from '@pnp/sp';
 import Tasks from './Tasks';
-//import { getSP } from '../pnpConfig';
+// import { getSP } from '../pnpConfig';
 //import OpinionPoll from './Opinion Poll'
-//import { Web } from "@pnp/sp/webs";
+import { Web } from "@pnp/sp/webs";
+import { ICamlQuery } from '@pnp/sp/lists';
+
 
 
 
 const MasterPageRow3 = (props:IMasterPageRow3Props) => {
   const [trainingdata,setTrainingdata]=React.useState([])
   const [tasksdata,setTasksdata]=React.useState([])
-
+ 
   const getTrainingsdata = async () => {
-    let _sp: SPFI = getSP(props.context);
-    
-    const items: any[] = await _sp.web.lists.getByTitle("TrainingCalender").items();
-    setTrainingdata(items)
-    console.log(items)
+    const caml: ICamlQuery = {
+      ViewXml:
+        "<View><ViewFields><FieldRef Name='trainingname' /> <FieldRef Name='EventDate' /></ViewFields><RowLimit>5</RowLimit></View>",
+    };
+  
+
+   
+   try{
+  
+  const web1 = Web("https://zelarsoft1.sharepoint.com/sites/Zelardemo/learningmanagement").using(SPFx(props.context))    
+  console.log(web1);
+ const items:any= await web1.lists.getByTitle("TrainingCalender")
+ console.log(items);
+ const trainingList =  await items.getItemsByCAMLQuery(caml);
+ console.log(trainingList);
+    setTrainingdata(trainingList);
+   
+   }
+   catch(e){
+    console.log(e);
+   }  
    
   };
 
   const getTasksdata = async () => {
-    let _sp: SPFI = getSP(props.context);
-    
-    const items: any[] = await _sp.web.lists.getByTitle("Tasks").items();
-    setTasksdata(items)
-    console.log(items)
+ 
+    const caml: ICamlQuery = {
+      ViewXml:
+        "<View><ViewFields><FieldRef Name='Title'/><FieldRef Name='DueDate' /></ViewFields><RowLimit>5</RowLimit></View>",
+    };
+   
+   try{
+  
+  const web1 = Web("https://zelarsoft1.sharepoint.com/sites/Zelardemo/learningmanagement").using(SPFx(props.context))    
+  console.log(web1);
+ const items:any= await web1.lists.getByTitle("Tasks")
+ const taskList =  await items.getItemsByCAMLQuery(caml);
+ setTasksdata(taskList); 
+   }
+   catch(e){
+    console.log(e);
+   }
    
   };
+
   React.useEffect(() => {
     const execute = async () => {
       await getTrainingsdata();

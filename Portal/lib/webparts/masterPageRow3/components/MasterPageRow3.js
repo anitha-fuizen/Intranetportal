@@ -41,41 +41,72 @@ import Trainings from './Trainings';
 import "@pnp/sp/webs";
 import "@pnp/sp/lists";
 import "@pnp/sp";
-import { getSP } from '../pnpConfig';
+// import { getSP } from '../pnpConfig';
+import { SPFx } from '@pnp/sp';
 import Tasks from './Tasks';
-//import { getSP } from '../pnpConfig';
+// import { getSP } from '../pnpConfig';
 //import OpinionPoll from './Opinion Poll'
-//import { Web } from "@pnp/sp/webs";
+import { Web } from "@pnp/sp/webs";
 var MasterPageRow3 = function (props) {
     var _a = React.useState([]), trainingdata = _a[0], setTrainingdata = _a[1];
     var _b = React.useState([]), tasksdata = _b[0], setTasksdata = _b[1];
     var getTrainingsdata = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var _sp, items;
+        var caml, web1, items, trainingList, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _sp = getSP(props.context);
-                    return [4 /*yield*/, _sp.web.lists.getByTitle("TrainingCalender").items()];
+                    caml = {
+                        ViewXml: "<View><ViewFields><FieldRef Name='trainingname' /> <FieldRef Name='EventDate' /></ViewFields><RowLimit>5</RowLimit></View>",
+                    };
+                    _a.label = 1;
                 case 1:
+                    _a.trys.push([1, 4, , 5]);
+                    web1 = Web("https://zelarsoft1.sharepoint.com/sites/Zelardemo/learningmanagement").using(SPFx(props.context));
+                    console.log(web1);
+                    return [4 /*yield*/, web1.lists.getByTitle("TrainingCalender")];
+                case 2:
                     items = _a.sent();
-                    setTrainingdata(items);
                     console.log(items);
-                    return [2 /*return*/];
+                    return [4 /*yield*/, items.getItemsByCAMLQuery(caml)];
+                case 3:
+                    trainingList = _a.sent();
+                    console.log(trainingList);
+                    setTrainingdata(trainingList);
+                    return [3 /*break*/, 5];
+                case 4:
+                    e_1 = _a.sent();
+                    console.log(e_1);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     }); };
     var getTasksdata = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var _sp, items;
+        var caml, web1, items, taskList, e_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _sp = getSP(props.context);
-                    return [4 /*yield*/, _sp.web.lists.getByTitle("Tasks").items()];
+                    caml = {
+                        ViewXml: "<View><ViewFields><FieldRef Name='Title'/><FieldRef Name='DueDate' /></ViewFields><RowLimit>5</RowLimit></View>",
+                    };
+                    _a.label = 1;
                 case 1:
+                    _a.trys.push([1, 4, , 5]);
+                    web1 = Web("https://zelarsoft1.sharepoint.com/sites/Zelardemo/learningmanagement").using(SPFx(props.context));
+                    console.log(web1);
+                    return [4 /*yield*/, web1.lists.getByTitle("Tasks")];
+                case 2:
                     items = _a.sent();
-                    setTasksdata(items);
-                    console.log(items);
-                    return [2 /*return*/];
+                    return [4 /*yield*/, items.getItemsByCAMLQuery(caml)];
+                case 3:
+                    taskList = _a.sent();
+                    setTasksdata(taskList);
+                    return [3 /*break*/, 5];
+                case 4:
+                    e_2 = _a.sent();
+                    console.log(e_2);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     }); };
